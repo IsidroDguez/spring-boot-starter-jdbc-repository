@@ -6,10 +6,11 @@ import com.cmeza.spring.ioc.handler.contracts.consumers.ParameterConsumer;
 import com.cmeza.spring.ioc.handler.metadata.MethodMetadata;
 import com.cmeza.spring.ioc.handler.metadata.TypeMetadata;
 import com.cmeza.spring.ioc.handler.metadata.impl.SimpleTypeMetadata;
+import com.cmeza.spring.jdbc.repository.mappers.records.JdbcRecordRowMapper;
 import com.cmeza.spring.jdbc.repository.support.annotations.JdbcRepository;
 import com.cmeza.spring.jdbc.repository.dsl.properties.JdbcRepositoryProperties;
-import com.cmeza.spring.jdbc.repository.mappers.JdbcRowMapper;
-import com.cmeza.spring.jdbc.repository.projections.JdbcProjectionRowMapper;
+import com.cmeza.spring.jdbc.repository.mappers.classes.JdbcRowMapper;
+import com.cmeza.spring.jdbc.repository.mappers.projections.JdbcProjectionRowMapper;
 import com.cmeza.spring.jdbc.repository.repositories.configuration.SimpleJdbcConfiguration;
 import com.cmeza.spring.jdbc.repository.support.definitions.*;
 import com.cmeza.spring.jdbc.repository.support.exceptions.InvalidParameterSqlTypeException;
@@ -126,6 +127,8 @@ public class JdbcContractFunctions implements ApplicationContextAware {
                     builder.rowMapper(new SingleColumnRowMapper<>(typeMetadata.getArgumentClass()));
                 } else if (typeMetadata.getArgumentClass().isInterface()) {
                     builder.rowMapper(JdbcProjectionRowMapper.newInstance(typeMetadata.getArgumentClass()));
+                } else if (typeMetadata.getArgumentClass().isRecord()) {
+                    builder.rowMapper(JdbcRecordRowMapper.newInstance((Class<Record>)typeMetadata.getArgumentClass()));
                 } else {
                     builder.rowMapper(JdbcRowMapper.newInstance(typeMetadata.getArgumentClass()));
                 }

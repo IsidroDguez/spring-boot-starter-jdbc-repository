@@ -6,6 +6,7 @@ import com.cmeza.spring.jdbc.repository.models.Employee;
 import com.cmeza.spring.jdbc.repository.projections.EmployeeAndSalaryProjection;
 import com.cmeza.spring.jdbc.repository.projections.EmployeeAndTitleProjection;
 import com.cmeza.spring.jdbc.repository.projections.EmployeeProjection;
+import com.cmeza.spring.jdbc.repository.records.EmployeeRecord;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -53,5 +54,9 @@ public interface QueryContract {
     List<Employee> getAllEmployeeWithConditionListAndMapping(List<Integer> ids);
 
     Optional<Department> getDepartmentOptionalWithCondition(String id);
+
+    EmployeeRecord getOneEmployeeRecordWithConditionMapping(String conditionOne, String conditionTwo);
+
+    EmployeeRecord getOneEmployeeRecordWithConditionAndComplexRowMapper(Integer id);
 
 }

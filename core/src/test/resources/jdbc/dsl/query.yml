@@ -140,3 +140,25 @@ spring:
             query:
               table: department
               where: id = :id
+          getOneEmployeeRecordWithConditionMapping:
+            query:
+              table: employee
+              where: first_name = :name and gender = :gen
+              mappings:
+                - from: conditionOne
+                  to: name
+                  type: VARCHAR
+                - from: conditionTwo
+                  to: gen
+                  type: VARCHAR
+          getOneEmployeeRecordWithConditionAndComplexRowMapper:
+            query:
+              table: employee
+              alias: e
+              where: e.id = :id
+              mapper: com.cmeza.spring.jdbc.repository.mappers.records.EmployeeAndSalaryRecordRowMapper
+              join-tables:
+                - table: salary
+                  alias: s
+                  'on': 's.employee_id = e.id'
+                  join: INNER

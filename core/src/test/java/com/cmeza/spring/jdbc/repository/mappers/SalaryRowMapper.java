@@ -1,5 +1,6 @@
 package com.cmeza.spring.jdbc.repository.mappers;
 
+import com.cmeza.spring.jdbc.repository.mappers.classes.JdbcRowMapper;
 import com.cmeza.spring.jdbc.repository.models.Salary;
 import org.springframework.stereotype.Component;
 

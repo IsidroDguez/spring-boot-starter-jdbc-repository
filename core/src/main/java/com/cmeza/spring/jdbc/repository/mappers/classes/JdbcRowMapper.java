@@ -1,4 +1,4 @@
-package com.cmeza.spring.jdbc.repository.mappers;
+package com.cmeza.spring.jdbc.repository.mappers.classes;
 
 import lombok.Getter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -14,6 +14,7 @@ public abstract class JdbcRowMapper<T> implements RowMapper<T> {
     private final BeanPropertyRowMapper<T> beanPropertyRowMapper;
 
     protected JdbcRowMapper(Class<T> mappedClass) {
+        Assert.notNull(mappedClass, "mappedClass must not be null");
         Assert.isTrue(!mappedClass.isInterface(), "The mapped class must not be an interface");
         this.mappedClass = mappedClass;
         this.beanPropertyRowMapper = new BeanPropertyRowMapper<>(this.mappedClass);

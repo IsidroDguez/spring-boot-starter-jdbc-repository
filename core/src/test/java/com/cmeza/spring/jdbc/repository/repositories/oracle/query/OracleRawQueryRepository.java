@@ -1,5 +1,7 @@
 package com.cmeza.spring.jdbc.repository.repositories.oracle.query;
 
+import com.cmeza.spring.jdbc.repository.mappers.records.EmployeeAndSalaryRecordRowMapper;
+import com.cmeza.spring.jdbc.repository.records.EmployeeRecord;
 import com.cmeza.spring.jdbc.repository.support.annotations.JdbcRepository;
 import com.cmeza.spring.jdbc.repository.support.annotations.methods.operations.JdbcRawQuery;
 import com.cmeza.spring.jdbc.repository.support.annotations.methods.supports.JdbcMapping;
@@ -114,4 +116,15 @@ public interface OracleRawQueryRepository extends QueryContract {
     @Override
     @JdbcRawQuery(value = "select * from test.department where id = :id")
     Optional<Department> getDepartmentOptionalWithCondition(String id);
+
+    @Override
+    @JdbcMapping(from = "conditionOne", to = "name", type = Types.VARCHAR)
+    @JdbcMapping(from = "conditionTwo", to = "gen", type = Types.VARCHAR)
+    @JdbcRawQuery(value = "select * from test.employee where first_name = :name and gender = :gen")
+    EmployeeRecord getOneEmployeeRecordWithConditionMapping(String conditionOne, String conditionTwo);
+
+    @Override
+    @JdbcRawQuery(value = "select * from test.employee e " +
+            "inner join test.salary s on s.employee_id = e.id where e.id = :id", mapper = EmployeeAndSalaryRecordRowMapper.class)
+    EmployeeRecord getOneEmployeeRecordWithConditionAndComplexRowMapper(Integer id);
 }
