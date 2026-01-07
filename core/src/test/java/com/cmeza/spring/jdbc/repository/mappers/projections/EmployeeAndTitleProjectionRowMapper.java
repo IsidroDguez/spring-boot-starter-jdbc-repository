@@ -1,8 +1,7 @@
 package com.cmeza.spring.jdbc.repository.mappers.projections;
 
 import com.cmeza.spring.jdbc.repository.projections.EmployeeAndTitleProjection;
-import com.cmeza.spring.jdbc.repository.projections.JdbcProjectionRowMapper;
-import com.cmeza.spring.jdbc.repository.projections.ProjectionAttributes;
+import com.cmeza.spring.jdbc.repository.mappers.Attributes;
 import org.springframework.stereotype.Component;
 
 import java.beans.PropertyDescriptor;
@@ -20,8 +19,8 @@ public class EmployeeAndTitleProjectionRowMapper extends JdbcProjectionRowMapper
     }
 
     @Override
-    protected void mapPropertyDescriptor(ResultSet rs, PropertyDescriptor propertyDescriptor, ProjectionAttributes projectionAttributes, int rowNum) throws SQLException {
-        projectionAttributes.addAttribute("titleObject", titleProjectionRowMapper.mapRow(rs, rowNum));
+    protected void mapPropertyDescriptor(ResultSet rs, PropertyDescriptor propertyDescriptor, Attributes attributes, int rowNum) throws SQLException {
+        attributes.addAttribute("titleObject", titleProjectionRowMapper.mapRow(rs, rowNum));
     }
 
     @Override

@@ -71,13 +71,19 @@
 - Add DSl annotations
 - Add integracion test (Postgres) for DSL annotations
 ### Renamed
-- Loggeable -> Loggable
+- Loggable -> Loggable
 
 ## [3.0.0] - 2025-11-13
 ### Added
 - Java 17 support
 - Spring boot 3 support
 - Test containers
+
+## [3.0.1] - 2026-01-07
+### Added
+- JdbcRecordRowMapper for records support
+### Changed
+- JdbcProjectionRowMapper method 'mapPropertyDescriptor' updated
 
 [1.0.0]: https://github.com/cmeza20/spring-boot-starter-jdbc-repository/tree/1.0.0
 [1.0.1]: https://github.com/cmeza20/spring-boot-starter-jdbc-repository/tree/1.0.1
@@ -88,3 +94,4 @@
 [2.0.0]: https://github.com/cmeza20/spring-boot-starter-jdbc-repository/tree/2.0.0
 [2.1.0]: https://github.com/cmeza20/spring-boot-starter-jdbc-repository/tree/2.1.0
 [3.0.0]: https://github.com/cmeza20/spring-boot-starter-jdbc-repository/tree/3.0.0
+[3.0.1]: https://github.com/cmeza20/spring-boot-starter-jdbc-repository/tree/3.0.1

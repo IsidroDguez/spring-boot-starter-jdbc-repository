@@ -1,6 +1,5 @@
 package com.cmeza.spring.jdbc.repository.mappers.projections;
 
-import com.cmeza.spring.jdbc.repository.projections.JdbcProjectionRowMapper;
 import com.cmeza.spring.jdbc.repository.projections.TitleProjection;
 import org.springframework.stereotype.Component;
 

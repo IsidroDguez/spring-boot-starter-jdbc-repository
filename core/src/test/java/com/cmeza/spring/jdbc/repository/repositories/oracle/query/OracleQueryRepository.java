@@ -1,5 +1,7 @@
 package com.cmeza.spring.jdbc.repository.repositories.oracle.query;
 
+import com.cmeza.spring.jdbc.repository.mappers.records.EmployeeAndSalaryRecordRowMapper;
+import com.cmeza.spring.jdbc.repository.records.EmployeeRecord;
 import com.cmeza.spring.jdbc.repository.support.annotations.JdbcRepository;
 import com.cmeza.spring.jdbc.repository.support.annotations.methods.operations.JdbcQuery;
 import com.cmeza.spring.jdbc.repository.support.annotations.methods.supports.JdbcJoinTable;
@@ -114,4 +116,15 @@ public interface OracleQueryRepository extends QueryContract {
     @Override
     @JdbcQuery(table = "department", where = "id = :id")
     Optional<Department> getDepartmentOptionalWithCondition(String id);
+
+    @Override
+    @JdbcMapping(from = "conditionOne", to = "name", type = Types.VARCHAR)
+    @JdbcMapping(from = "conditionTwo", to = "gen", type = Types.VARCHAR)
+    @JdbcQuery(table = "employee", where = "first_name = :name and gender = :gen")
+    EmployeeRecord getOneEmployeeRecordWithConditionMapping(String conditionOne, String conditionTwo);
+
+    @Override
+    @JdbcJoinTable(table = "salary", alias = "s", on = "s.employee_id = e.id", join = JdbcJoinTable.Join.INNER)
+    @JdbcQuery(table = "employee", alias = "e", where = "e.id = :id", mapper = EmployeeAndSalaryRecordRowMapper.class)
+    EmployeeRecord getOneEmployeeRecordWithConditionAndComplexRowMapper(Integer id);
 }

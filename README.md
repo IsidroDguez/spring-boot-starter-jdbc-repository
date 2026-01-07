@@ -41,6 +41,7 @@ Jdbc template repositories, inspired by Spring data Jpa
 ### Mappers
 * [JdbcRowMapper](https://github.com/cmeza20/spring-boot-starter-jdbc-repository/wiki/JdbcRowMapper)
 * [JdbcProjectionRowMapper](https://github.com/cmeza20/spring-boot-starter-jdbc-repository/wiki/JdbcProjectionRowMapper)
+* [JdbcRecordRowMapper](https://github.com/cmeza20/spring-boot-starter-jdbc-repository/wiki/JdbcRecordRowMapper)
 
 ***
 ### Advanced
@@ -59,7 +60,7 @@ Jdbc template repositories, inspired by Spring data Jpa
 <dependency>
     <groupId>com.cmeza</groupId>
     <artifactId>spring-boot-starter-jdbc-repository</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
 </dependency>
 ```
 ## Minimal dependencies ##

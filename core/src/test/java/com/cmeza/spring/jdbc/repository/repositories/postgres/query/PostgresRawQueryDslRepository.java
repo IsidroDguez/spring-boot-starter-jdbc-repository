@@ -8,6 +8,7 @@ import com.cmeza.spring.jdbc.repository.models.Employee;
 import com.cmeza.spring.jdbc.repository.projections.EmployeeAndSalaryProjection;
 import com.cmeza.spring.jdbc.repository.projections.EmployeeAndTitleProjection;
 import com.cmeza.spring.jdbc.repository.projections.EmployeeProjection;
+import com.cmeza.spring.jdbc.repository.records.EmployeeRecord;
 import com.cmeza.spring.jdbc.repository.repositories.contracts.QueryContract;
 import com.cmeza.spring.jdbc.repository.support.annotations.JdbcRepository;
 import com.cmeza.spring.jdbc.repository.support.annotations.methods.operations.JdbcRawQuery;
@@ -98,4 +99,12 @@ public interface PostgresRawQueryDslRepository extends QueryContract {
     @Override
     @JdbcRawQuery.DSL
     Optional<Department> getDepartmentOptionalWithCondition(String id);
+
+    @Override
+    @JdbcRawQuery.DSL
+    EmployeeRecord getOneEmployeeRecordWithConditionMapping(String conditionOne, String conditionTwo);
+
+    @Override
+    @JdbcRawQuery.DSL
+    EmployeeRecord getOneEmployeeRecordWithConditionAndComplexRowMapper(Integer id);
 }

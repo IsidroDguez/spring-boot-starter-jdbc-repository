@@ -1,5 +1,6 @@
-package com.cmeza.spring.jdbc.repository.projections;
+package com.cmeza.spring.jdbc.repository.mappers.projections;
 
+import com.cmeza.spring.jdbc.repository.mappers.Attributes;
 import org.springframework.util.Assert;
 
 import java.beans.PropertyDescriptor;
@@ -7,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProjectionAttributesImpl implements ProjectionAttributes {
+public class ProjectionAttributesImpl implements Attributes {
     private final Map<String, Object> map = new LinkedHashMap<>();
     private final List<PropertyDescriptor> descriptors;
 
@@ -17,7 +18,7 @@ public class ProjectionAttributesImpl implements ProjectionAttributes {
     }
 
     @Override
-    public ProjectionAttributes addAttribute(String name, Object value) {
+    public Attributes addAttribute(String name, Object value) {
         Assert.isTrue(descriptors.stream().anyMatch(d -> d.getName().equals(name)), String.format("Attribute %s is not present in the projection", name));
         map.put(name, value);
         return this;

@@ -75,3 +75,17 @@ spring:
                   type: INTEGER
           getDepartmentOptionalWithCondition:
             raw-query: select * from sch_test.department where id = :id
+          getOneEmployeeRecordWithConditionMapping:
+            raw-query:
+              value: select * from sch_test.employee where first_name = :name and gender = :gen
+              mappings:
+                - from: conditionOne
+                  to: name
+                  type: VARCHAR
+                - from: conditionTwo
+                  to: gen
+                  type: VARCHAR
+          getOneEmployeeRecordWithConditionAndComplexRowMapper:
+            raw-query:
+              value: select * from sch_test.employee e inner join sch_test.salary s on s.employee_id = e.id where e.id = :id
+              mapper: com.cmeza.spring.jdbc.repository.mappers.records.EmployeeAndSalaryRecordRowMapper

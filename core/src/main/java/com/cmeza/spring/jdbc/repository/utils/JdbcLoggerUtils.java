@@ -2,7 +2,7 @@ package com.cmeza.spring.jdbc.repository.utils;
 
 import com.cmeza.spring.ioc.handler.metadata.TypeMetadata;
 import com.cmeza.spring.ioc.handler.metadata.impl.SimpleTypeMetadata;
-import com.cmeza.spring.jdbc.repository.mappers.JdbcRowMapper;
+import com.cmeza.spring.jdbc.repository.mappers.classes.JdbcRowMapper;
 import com.cmeza.spring.jdbc.repository.support.definitions.MappingDefinition;
 import com.cmeza.spring.jdbc.repository.repositories.template.dialects.providers.InParameterSourceProvider;
 import com.cmeza.spring.jdbc.repository.repositories.template.dialects.providers.MappingSourceProvider;

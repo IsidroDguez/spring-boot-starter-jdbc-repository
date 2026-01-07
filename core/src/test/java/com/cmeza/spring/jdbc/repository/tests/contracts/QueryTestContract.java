@@ -41,4 +41,8 @@ public interface QueryTestContract {
     void testGetAllEmployeeWithConditionListAndMapping();
 
     void testGetDepartmentOptionalWithCondition();
+
+    void testGetOneEmployeeRecordWithConditionMapping();
+
+    void testGetOneEmployeeRecordWithConditionAndComplexRowMapper();
 }

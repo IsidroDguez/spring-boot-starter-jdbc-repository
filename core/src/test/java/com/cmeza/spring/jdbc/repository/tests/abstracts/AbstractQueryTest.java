@@ -6,6 +6,7 @@ import com.cmeza.spring.jdbc.repository.models.Employee;
 import com.cmeza.spring.jdbc.repository.projections.EmployeeAndSalaryProjection;
 import com.cmeza.spring.jdbc.repository.projections.EmployeeAndTitleProjection;
 import com.cmeza.spring.jdbc.repository.projections.EmployeeProjection;
+import com.cmeza.spring.jdbc.repository.records.EmployeeRecord;
 import com.cmeza.spring.jdbc.repository.repositories.contracts.QueryContract;
 import com.cmeza.spring.jdbc.repository.tests.contracts.QueryTestContract;
 import com.cmeza.spring.jdbc.repository.utils.AssertUtils;
@@ -189,5 +190,23 @@ public abstract class AbstractQueryTest extends AbstractException implements Que
 
         Department department = departmentOptional.get();
         AssertUtils.assertEquals(department.getId(), id, String.class);
+    }
+
+    @Test
+    @Override
+    public void testGetOneEmployeeRecordWithConditionMapping() {
+        String conditionOne = "Eberhardt";
+        String conditionTwo = "M";
+        AssertUtils.assertObject(queryRepository.getOneEmployeeRecordWithConditionMapping(conditionOne, conditionTwo), EmployeeRecord.class);
+    }
+
+    @Test
+    @Override
+    public void testGetOneEmployeeRecordWithConditionAndComplexRowMapper() {
+        Integer idEmployee = 1;
+        EmployeeRecord employee = queryRepository.getOneEmployeeRecordWithConditionAndComplexRowMapper(idEmployee);
+        AssertUtils.assertObject(employee, EmployeeRecord.class);
+        AssertUtils.assertNotNull(employee.salary());
+        AssertUtils.assertEquals(employee.salary().amount(), 60117d, Double.class);
     }
 }

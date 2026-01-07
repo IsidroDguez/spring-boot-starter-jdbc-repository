@@ -1,7 +1,8 @@
 package com.cmeza.spring.jdbc.repository.repositories.template.dialects.providers;
 
-import com.cmeza.spring.jdbc.repository.mappers.JdbcRowMapper;
-import com.cmeza.spring.jdbc.repository.projections.JdbcProjectionRowMapper;
+import com.cmeza.spring.jdbc.repository.mappers.classes.JdbcRowMapper;
+import com.cmeza.spring.jdbc.repository.mappers.projections.JdbcProjectionRowMapper;
+import com.cmeza.spring.jdbc.repository.mappers.records.JdbcRecordRowMapper;
 import com.cmeza.spring.jdbc.repository.repositories.template.dialects.abstracts.AbstractJdbcBuilder;
 import com.cmeza.spring.jdbc.repository.utils.JdbcUtils;
 import lombok.Getter;
@@ -50,6 +51,9 @@ public class RowMapperSourceProvider<T> {
                 setRowMapper(new SingleColumnRowMapper<>(returnType));
             } else if (returnType.isInterface()) {
                 setRowMapper(JdbcProjectionRowMapper.newInstance(returnType));
+            } else if (returnType.isRecord()) {
+                setRowMapper(JdbcRecordRowMapper.newInstance((Class<Record>)returnType));
+
             } else {
                 setRowMapper(JdbcRowMapper.newInstance(returnType));
             }

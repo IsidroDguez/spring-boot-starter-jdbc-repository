@@ -1,5 +1,6 @@
-package com.cmeza.spring.jdbc.repository.projections;
+package com.cmeza.spring.jdbc.repository.mappers.projections;
 
+import com.cmeza.spring.jdbc.repository.mappers.Attributes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.NotWritablePropertyException;
@@ -26,12 +27,13 @@ public abstract class JdbcProjectionRowMapper<T> implements RowMapper<T> {
     private List<PropertyDescriptor> descriptors;
 
     protected JdbcProjectionRowMapper(Class<T> mappedClass) {
+        Assert.notNull(mappedClass, "mappedClass must not be null");
         Assert.isTrue(mappedClass.isInterface(), "The mapped class must be an interface");
         this.mappedClass = mappedClass;
         initialize();
     }
 
-    protected void mapPropertyDescriptor(ResultSet rs, PropertyDescriptor propertyDescriptor, ProjectionAttributes projectionAttributes, int rowNum) throws SQLException {
+    protected void mapPropertyDescriptor(ResultSet rs, PropertyDescriptor propertyDescriptor, Attributes attributes, int rowNum) throws SQLException {
     }
 
     public static <T> JdbcProjectionRowMapper<T> newInstance(Class<T> mappedClass) {
@@ -44,7 +46,7 @@ public abstract class JdbcProjectionRowMapper<T> implements RowMapper<T> {
         ResultSetMetaData rsmd = rs.getMetaData();
         int columnCount = rsmd.getColumnCount();
 
-        ProjectionAttributes projectionAttributes = new ProjectionAttributesImpl(this.descriptors);
+        Attributes attributes = new ProjectionAttributesImpl(this.descriptors);
 
         for (int index = 1; index <= columnCount; ++index) {
             String column = JdbcUtils.lookupColumnName(rsmd, index);
@@ -57,7 +59,7 @@ public abstract class JdbcProjectionRowMapper<T> implements RowMapper<T> {
                         log.debug("Mapping column '" + column + "' to property '" + pd.getName() + "' of type '" + ClassUtils.getQualifiedName(pd.getPropertyType()) + "'");
                     }
 
-                    projectionAttributes.addAttribute(pd.getName(), value);
+                    attributes.addAttribute(pd.getName(), value);
 
                 } catch (NotWritablePropertyException var15) {
                     throw new DataRetrievalFailureException("Unable to map column '" + column + "' to property '" + pd.getName() + "'", var15);
@@ -67,11 +69,11 @@ public abstract class JdbcProjectionRowMapper<T> implements RowMapper<T> {
 
         if (Objects.nonNull(this.mappedFields)) {
             for (PropertyDescriptor descriptor : this.descriptors) {
-                mapPropertyDescriptor(rs, descriptor, projectionAttributes, rowNum);
+                mapPropertyDescriptor(rs, descriptor, attributes, rowNum);
             }
         }
 
-        return this.constructMappedInstance(projectionAttributes.getAttributes());
+        return this.constructMappedInstance(attributes.getAttributes());
     }
 
     private T constructMappedInstance(Map<String, Object> map) {
